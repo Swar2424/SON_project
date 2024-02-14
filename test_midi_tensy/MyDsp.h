@@ -9,6 +9,7 @@
 #include "Sine.h"
 #include "Phasor.h"
 #include "Echo.h"
+#include "Smooth.h"
 
 class MyDsp : public AudioStream
 {
@@ -27,6 +28,11 @@ class MyDsp : public AudioStream
     MySine sine2;
     MySine sine3;
     MySine sine4;
+    Smooth smooth0;
+    Smooth smooth1;
+    Smooth smooth2;
+    Smooth smooth3;
+    Smooth smooth4;
     Sine oscil;
     Echo echo;
     float myGain = 0.5;

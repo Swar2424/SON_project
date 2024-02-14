@@ -3,10 +3,17 @@
 
 
 MyDsp myDsp;
+AudioInputI2S in;
 AudioOutputI2S out;
+AudioMixer4 mixer1;
 AudioControlSGTL5000 audioShield;
-AudioConnection patchCord0(myDsp,0,out,0);
-AudioConnection patchCord1(myDsp,0,out,1);
+AudioEffectFreeverb freeverb1;
+AudioConnection patchCord0(in, 0, freeverb1, 0);
+AudioConnection patchCord1(freeverb1, 0, mixer1, 0);
+AudioConnection patchCord2(myDsp, 0, mixer1, 1);
+AudioConnection patchCord3(mixer1,0,out,0);
+AudioConnection patchCord4(mixer1,0,out,1);
+AudioControlSGTL5000 sgtl5000_1;
 
 int ledPin = 13;
 int canaux[5] = {0, 0, 0, 0, 0};
@@ -34,14 +41,17 @@ void OnNoteOff(byte channel, byte note, byte velocity) {
 }
 
 void setup() {
-  AudioMemory(2);
+  AudioMemory(8);
+  freeverb1.damping(0.5);
+  freeverb1.roomsize(0.7);
   audioShield.enable();
-  audioShield.volume(0.2);
-
+  audioShield.volume(0.3);
+  sgtl5000_1.inputSelect(AUDIO_INPUT_MIC);
+  sgtl5000_1.micGain(45);
   for (int i=0 ; i<len ; i++) {
      myDsp.setMute(i, 0);
   }
-  myDsp.setGaine(0.2);
+  myDsp.setGaine(0.1);
   pinMode(ledPin, OUTPUT);
   usbMIDI.setHandleNoteOff(OnNoteOff);
   usbMIDI.setHandleNoteOn(OnNoteOn) ;
