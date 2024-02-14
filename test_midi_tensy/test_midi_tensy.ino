@@ -9,7 +9,7 @@ AudioConnection patchCord0(myDsp,0,out,0);
 AudioConnection patchCord1(myDsp,0,out,1);
 
 int ledPin = 13;
-int canaux[4] = {0, 0, 0, 0};
+int canaux[5] = {0, 0, 0, 0, 0};
 int len = sizeof(canaux) / sizeof(canaux[0]);
 
 void OnNoteOn(byte channel, byte note, byte velocity) {

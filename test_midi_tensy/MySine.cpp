@@ -39,5 +39,5 @@ float MySine::tick(){
   double value7 = sineTable.tick(index_tierce)>=0.0 ? 1.0:-1.0;
   double value8 = sineTable.tick(index_tierce2)>=0.0 ? 1.0:-1.0;
   double value9 = sineTable.tick(index_tierce4)>=0.0 ? 1.0:-1.0;
-  return (value0 + value1 + value2 + value3 + value4 + value5 + value6 + value7 + value8 + value9)*gain*0.08;
+  return (value0 + value1 + value2 + value3 + value4 + value5 + value6 + value7 + value8 + value9)*gain*0.1;
 }

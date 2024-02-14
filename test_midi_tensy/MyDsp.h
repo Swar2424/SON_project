@@ -26,11 +26,11 @@ class MyDsp : public AudioStream
     MySine sine1;
     MySine sine2;
     MySine sine3;
+    MySine sine4;
     Sine oscil;
     Echo echo;
     float myGain = 0.5;
-    float myMute[4] = {1, 1, 1, 1};
-    float myMute_r[4] = {1, 1, 1, 1};
+    float myMute[5] = {0, 0, 0, 0, 0};
 };
 
 #endif
