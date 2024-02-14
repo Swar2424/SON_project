@@ -23,7 +23,7 @@ void OnNoteOn(byte channel, byte note, byte velocity) {
   }
   Serial.print(canaux[0]);  
   Serial.print(canaux[1]);  
-  Serial.println(canaux[2]);  
+  Serial.println(canaux[2]); 
 }
 
 void OnNoteOff(byte channel, byte note, byte velocity) {
@@ -35,7 +35,7 @@ void OnNoteOff(byte channel, byte note, byte velocity) {
   }
   Serial.print(canaux[0]);  
   Serial.print(canaux[1]);
-  Serial.println(canaux[2]); 
+  Serial.println(canaux[2]);
 }
 
 void setup() {
