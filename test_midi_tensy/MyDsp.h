@@ -18,18 +18,19 @@ class MyDsp : public AudioStream
     
     virtual void update(void);
     void setFreq(int nb, float freq);
-    void setGaine(int nb, float gaine);
+    void setGaine(float gaine);
     void setMute(int nb, float mute);
     
   private:
     MySine sine0;
     MySine sine1;
     MySine sine2;
+    MySine sine3;
+    MySine sine4;
     Sine oscil;
     Echo echo;
-    float myGain[3] = {0.5, 0.5, 0.5};
-    float myMute[3] = {1, 1, 1};
-    float myMute_r[3] = {1, 1, 1};
+    float myGain = 0.5;
+    float myMute[5] = {0, 0, 0, 0, 0};
 };
 
 #endif
