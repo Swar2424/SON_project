@@ -6,10 +6,6 @@
 
 MyDsp::MyDsp() : 
 AudioStream(AUDIO_OUTPUTS, new audio_block_t*[AUDIO_OUTPUTS]),
-sawtooth(AUDIO_SAMPLE_RATE_EXACT),
-sine1(AUDIO_SAMPLE_RATE_EXACT),
-sine2(AUDIO_SAMPLE_RATE_EXACT),
-sine3(AUDIO_SAMPLE_RATE_EXACT),
 echo(AUDIO_SAMPLE_RATE_EXACT,10000),
 smooth()
 {
@@ -22,19 +18,47 @@ MyDsp::~MyDsp(){}
 
 // set sine wave frequency
 void MyDsp::setFreq(float freq){
-  sawtooth.setFrequency(freq);
-  sine1.setFrequency(4);
-  sine2.setFrequency(7);
-  sine3.setFrequency(11);
+  if (current == 0) {
+    sawtooth->setFrequency(freq);
+  } else {
+    sine->setFrequency(freq);
+  }
+}
+
+
+void MyDsp::replaceSine() {
+  modif_needed = true;
 }
 
 void MyDsp::update(void) {
+  
+  if (modif_needed) {
+    if (current == 0) {
+      delete sawtooth;
+      sine = new Sine(AUDIO_SAMPLE_RATE_EXACT);
+      current = 1;
+    } else {
+      delete sine;
+      sawtooth = new Phasor(AUDIO_SAMPLE_RATE_EXACT);
+      current = 0;
+    }  
+    modif_needed = false;
+  }
+  
   audio_block_t* outBlock[AUDIO_OUTPUTS];
   for (int channel = 0; channel < AUDIO_OUTPUTS; channel++) {
     outBlock[channel] = allocate();
     if (outBlock[channel]) {
       for (int i = 0; i < AUDIO_BLOCK_SAMPLES; i++) {
-        float currentSample = smooth.tick(echo.tick((sawtooth.tick()*2 - 1)*(sine1.tick()*0.5 +0.5)*(sine2.tick()*0.5 +0.5)*(sine3.tick()*0.5 +0.5)*0.5));
+        
+        float signal_tick;
+        if (current == 0) {
+          signal_tick = sawtooth->tick();
+        } else {
+          signal_tick = sine->tick();
+        }
+
+        float currentSample = echo.tick(signal_tick);
         currentSample = max(-1,min(1,currentSample));
         int16_t val = currentSample*MULT_16;
         outBlock[channel]->data[i] = val;
