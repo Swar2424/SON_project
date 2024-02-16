@@ -10,10 +10,11 @@ AudioConnection patchCord1(myDsp,0,out,1);
 void setup() {
   AudioMemory(2);
   audioShield.enable();
-  audioShield.volume(0.3);
+  audioShield.volume(0.1);
 }
 
 void loop() {
   myDsp.setFreq(random(50,1000));
-  delay(100);
+  delay(1000);
+  myDsp.replaceSine();
 }

@@ -18,14 +18,15 @@ class MyDsp : public AudioStream
     
     virtual void update(void);
     void setFreq(float freq);
+    void replaceSine();
     
   private:
-    Sine sine1;
-    Sine sine2;
-    Sine sine3;
-    Phasor sawtooth;
+    Sine* sine = NULL;
+    Phasor* sawtooth = new Phasor(AUDIO_SAMPLE_RATE_EXACT);
     Echo echo;
     Smooth smooth;
+    int current = 0;
+    bool modif_needed = false;
 };
 
 #endif
