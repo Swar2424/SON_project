@@ -7,7 +7,6 @@
 
 #include "MySine.h"
 #include "MySine2.h"
-#include "Sine.h"
 #include "Phasor.h"
 #include "Echo.h"
 #include "Smooth.h"
@@ -40,7 +39,6 @@ class MyDsp : public AudioStream
     Smooth smooth2;
     Smooth smooth3;
     Smooth smooth4;
-    Sine oscil;
     Echo echo;
     float myGain = 0.5;
     float myMute[5] = {0, 0, 0, 0, 0};

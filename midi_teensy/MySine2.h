@@ -10,12 +10,18 @@ public:
   
   void setFrequency(float f);
   void setGain(float g);
+  void setReleased(float b);
   float tick();
 private:
   SineTable sineTable;
   Phasor phasor;
   float gain;
   int samplingRate;
+  int envelopeIndex;
+  float envelopeValue;
+  bool isMute;
+  bool isReleased;
+  
 };
 
 #endif  // SINE_H_INCLUDED
