@@ -23,22 +23,11 @@ class MyDsp : public AudioStream
     void switchInstru(int instru);
     
   private:
-    MySine* organ0 = new MySine(AUDIO_SAMPLE_RATE_EXACT);
-    MySine* organ1 = new MySine(AUDIO_SAMPLE_RATE_EXACT);
-    MySine* organ2 = new MySine(AUDIO_SAMPLE_RATE_EXACT);
-    MySine* organ3 = new MySine(AUDIO_SAMPLE_RATE_EXACT);
-    MySine* organ4 = new MySine(AUDIO_SAMPLE_RATE_EXACT);
-    MySine2* sine0 = NULL;
-    MySine2* sine1 = NULL;
-    MySine2* sine2 = NULL;
-    MySine2* sine3 = NULL;
-    MySine2* sine4 = NULL;
-    Smooth smooth0;
-    Smooth smooth1;
-    Smooth smooth2;
-    Smooth smooth3;
-    Smooth smooth4;
+    MySine* organL[5];
+    MySine2* pianoL[5];
+    Smooth* smoothL[5];
     Echo echo;
+    int N = 5;
     float myGain = 0.5;
     float myMute[5] = {0, 0, 0, 0, 0};
     int CurrentInstru = 0;

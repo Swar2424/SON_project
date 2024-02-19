@@ -6,20 +6,15 @@
 
 MyDsp::MyDsp() : 
 AudioStream(AUDIO_OUTPUTS, new audio_block_t*[AUDIO_OUTPUTS]),
-smooth0(),
-smooth1(),
-smooth2(),
-smooth3(),
-smooth4(),
 echo(AUDIO_SAMPLE_RATE_EXACT,10000)
 {
   echo.setDel(8000);
   echo.setFeedback(0.4);
-  smooth0.setPole(0.999);
-  smooth1.setPole(0.999);
-  smooth2.setPole(0.999);
-  smooth3.setPole(0.999);
-  smooth4.setPole(0.999);
+  for (int i=0 ; i<N ; i++) {
+    organL[i] = new MySine(AUDIO_SAMPLE_RATE_EXACT);
+    smoothL[i] = new Smooth;
+    smoothL[i]->setPole(0.999);
+  }
 }
 
 MyDsp::~MyDsp(){}
@@ -27,41 +22,9 @@ MyDsp::~MyDsp(){}
 // set sine wave frequency
 void MyDsp::setFreq(int nb, float freq){
   if (CurrentInstru == 0) {
-      switch(nb) {
-        case 0:
-          organ0->setFrequency(freq);
-          break;
-        case 1:
-          organ1->setFrequency(freq);
-          break;
-        case 2:
-          organ2->setFrequency(freq);
-          break;
-        case 3:
-          organ3->setFrequency(freq);
-          break;
-        case 4:
-          organ4->setFrequency(freq);
-          break;
-      }
+     organL[nb]->setFrequency(freq);
   } else {
-      switch(nb) {
-        case 0:
-          sine0->setFrequency(freq);
-          break;
-        case 1:
-          sine1->setFrequency(freq);
-          break;
-        case 2:
-          sine2->setFrequency(freq);
-          break;
-        case 3:
-          sine3->setFrequency(freq);
-          break;
-        case 4:
-          sine4->setFrequency(freq);
-          break;
-      }
+     pianoL[nb]->setFrequency(freq);
   }  
 }
 
@@ -79,23 +42,7 @@ void MyDsp::setGaine(float gaine) {
 void MyDsp::setMute(int nb, float mute) {
   myMute[nb] = mute;
   if (CurrentInstru == 1){
-    switch(nb) {
-        case 0:
-          sine0->setReleased(mute);
-          break;
-        case 1:
-          sine1->setReleased(mute);
-          break;
-        case 2:
-          sine2->setReleased(mute);
-          break;
-        case 3:
-          sine3->setReleased(mute);
-          break;
-        case 4:
-          sine4->setReleased(mute);
-          break;
-      }
+    pianoL[nb]->setReleased(mute);
   }
 }
 
@@ -105,44 +52,24 @@ void MyDsp::update(void) {
   if (modif) {
     if (NewInstru != CurrentInstru) {
       if (NewInstru == 0) {
-        delete sine0;
-        delete sine1;
-        delete sine2;
-        delete sine3;
-        delete sine4;
-        organ0 = new MySine(AUDIO_SAMPLE_RATE_EXACT);
-        organ1 = new MySine(AUDIO_SAMPLE_RATE_EXACT);
-        organ2 = new MySine(AUDIO_SAMPLE_RATE_EXACT);
-        organ3 = new MySine(AUDIO_SAMPLE_RATE_EXACT);
-        organ4 = new MySine(AUDIO_SAMPLE_RATE_EXACT);
+          for (int i=0 ; i<N ; i++) {
+            delete pianoL[i];
+            organL[i] = new MySine(AUDIO_SAMPLE_RATE_EXACT);
+          }        
         CurrentInstru = 0;
       } else {
-        delete organ0;
-        delete organ1;
-        delete organ2;
-        delete organ3;
-        delete organ4;
-        sine0 = new MySine2(AUDIO_SAMPLE_RATE_EXACT);
-        sine1 = new MySine2(AUDIO_SAMPLE_RATE_EXACT);
-        sine2 = new MySine2(AUDIO_SAMPLE_RATE_EXACT);
-        sine3 = new MySine2(AUDIO_SAMPLE_RATE_EXACT);
-        sine4 = new MySine2(AUDIO_SAMPLE_RATE_EXACT);
-        sine0->setReleased(0.0);
-        sine1->setReleased(0.0);
-        sine2->setReleased(0.0);
-        sine3->setReleased(0.0);
-        sine4->setReleased(0.0);
+        for (int i=0 ; i<N ; i++) {
+          delete organL[i];
+          pianoL[i] = new MySine2(AUDIO_SAMPLE_RATE_EXACT);
+          pianoL[i]->setReleased(0.0);
+        }
         CurrentInstru = 1;
       }
     }
     for (int i = 0; i<5 ; i++){
       myMute[i] = 0.0;
+      smoothL[i]->setDel(0.0);
     }
-    smooth0.setDel(0.0);
-    smooth1.setDel(0.0);
-    smooth2.setDel(0.0);
-    smooth3.setDel(0.0);
-    smooth4.setDel(0.0);
     modif = false;
   }
 
@@ -157,11 +84,14 @@ void MyDsp::update(void) {
         float note_signal = 0.0;
         
         if(CurrentInstru == 0) {
-          note_signal = organ0->tick()*smooth0.tick(myMute[0])*0.25 + organ1->tick()*smooth1.tick(myMute[1])*0.25 + organ2->tick()*smooth2.tick(myMute[2])*0.25 + organ3->tick()*smooth3.tick(myMute[3])*0.25 + organ4->tick()*smooth4.tick(myMute[4])*0.25;
+          for (int i=0 ; i<N ; i++) {
+            note_signal += organL[i]->tick()*smoothL[i]->tick(myMute[i])*0.25;
+          }
           note_signal = echo.tick(note_signal);
         } else {
-          note_signal = sine0->tick()*smooth0.tick(myMute[0])*0.25 + sine1->tick()*smooth1.tick(myMute[1])*0.25 + sine2->tick()*smooth2.tick(myMute[2])*0.25 + sine3->tick()*smooth3.tick(myMute[3])*0.25 + sine4->tick()*smooth4.tick(myMute[4])*0.25;
-          
+          for (int i=0 ; i<N ; i++) {
+            note_signal += pianoL[i]->tick()*smoothL[i]->tick(myMute[i])*0.25;
+          }
         }
         
         float currentSample = note_signal * myGain;
