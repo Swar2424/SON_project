@@ -8,42 +8,6 @@ import json
 ctk.set_appearance_mode("System")
 ctk.set_default_color_theme("blue")
 
-dico_notes = {
-    
-}
-
-
-class MonTimer:
-
-    def __init__(self, delai, fonction, longueur) :
-        self.delai = delai
-        self.fonction = fonction
-        self.column = 0
-        self.longueur = longueur
-        self.timer = Timer(self.delai, self.run)
-
-    def start (self) :
-        self.column = -1
-        self.run()
-
-        
-
-    def run(self) :
-        self.timer = Timer(self.delai , self.run)
-        self.timer.start ()
-        temp = self.column
-        if self.column == self.longueur-1:
-            self.column = 0
-        else :
-            self.column += 1
-        
-        self.fonction (temp)
-        
-
-    def cancel(self) :
-        self.timer.cancel ()
-        
-        
         
 class boite_a_musique :
  
@@ -151,6 +115,8 @@ class boite_a_musique :
         elif self.c_m_current == "MIN" :      
             self.c_m_current = "MAJ"
             self.bouton_mode.configure(text = "Major")   
+   
+   
             
     def chords_d_select(self, d):
         """
@@ -177,7 +143,7 @@ class boite_a_musique :
         
         if self.instru_coché == False :
             self.instru_coché = True
-            self.bouton_instru.configure(text = "Synth")
+            self.bouton_instru.configure(text = "Piano")
             note_on = [0x94, 2, 100]
             self.out.send_message(note_on)
             time.sleep(0.1)

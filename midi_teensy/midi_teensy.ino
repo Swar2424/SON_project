@@ -27,9 +27,8 @@ void OnNoteOn(byte channel, byte note, byte velocity) {
   if (note == 2) {
     instru = (instru + 1) % max_instru;
     myDsp.switchInstru(instru);
-    for (int i = 0; i<len ; i++){
+    for (int i = 0; i<5 ; i++){
       canaux[i] = 0;
-      myDsp.setMute(i, 0.0);
     }
   }
 }

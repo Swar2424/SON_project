@@ -127,9 +127,22 @@ void MyDsp::update(void) {
         sine2 = new MySine2(AUDIO_SAMPLE_RATE_EXACT);
         sine3 = new MySine2(AUDIO_SAMPLE_RATE_EXACT);
         sine4 = new MySine2(AUDIO_SAMPLE_RATE_EXACT);
+        sine0->setReleased(0.0);
+        sine1->setReleased(0.0);
+        sine2->setReleased(0.0);
+        sine3->setReleased(0.0);
+        sine4->setReleased(0.0);
         CurrentInstru = 1;
       }
     }
+    for (int i = 0; i<5 ; i++){
+      myMute[i] = 0.0;
+    }
+    smooth0.setDel(0.0);
+    smooth1.setDel(0.0);
+    smooth2.setDel(0.0);
+    smooth3.setDel(0.0);
+    smooth4.setDel(0.0);
     modif = false;
   }
 

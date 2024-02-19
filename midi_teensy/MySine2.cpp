@@ -38,9 +38,9 @@ void MySine2::setReleased(float b){
     
 float MySine2::tick(){
   float attackTime = 0.005;
-  float decayTime = 0.05;
-  float sustainLevel = 0.7;
-  float releaseTime = 0.3;
+  float decayTime = 0.03;
+  float sustainLevel = 0.4;
+  float releaseTime = 0.5;
   
   if (!isReleased) {
       if (envelopeIndex < attackTime * samplingRate) {
