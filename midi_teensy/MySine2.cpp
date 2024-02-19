@@ -37,7 +37,7 @@ void MySine2::setReleased(float b){
 }
     
 float MySine2::tick(){
-  float attackTime = 0.01;
+  float attackTime = 0.005;
   float decayTime = 0.05;
   float sustainLevel = 0.7;
   float releaseTime = 0.3;
@@ -67,7 +67,7 @@ float MySine2::tick(){
   double value5 = sineTable.tick(index*5)*(0.3*0.2);
   double value6 = sineTable.tick(index*6)*(0.3*0.1);
 
-  return(value1 + value2 + value3 + value4 + value5 + value6) * 5 * envelopeValue;
+  return(value1 + value2 + value3 + value4 + value5 + value6) * envelopeValue;
   
 
   
