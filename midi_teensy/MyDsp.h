@@ -7,7 +7,6 @@
 
 #include "MySine.h"
 #include "MySine2.h"
-#include "Phasor.h"
 #include "Echo.h"
 #include "Smooth.h"
 
