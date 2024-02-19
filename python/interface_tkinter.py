@@ -17,12 +17,12 @@ class boite_a_musique :
         Entrée : None
         Sortie : None
         """
-        
+        """
         #Initialisation de la fenêtre
         self.out = rtmidi.MidiOut()
         self.out.open_port(1)
-        
-        self.racine = ctk.CTk(fg_color = "grey20")
+        """
+        self.racine = ctk.CTk(fg_color = "Cornsilk1")
         self.racine.geometry("550x500")
         self.racine.resizable(False, False)
         self.racine.title("Midi Teensy")
@@ -46,29 +46,29 @@ class boite_a_musique :
         
 
         #Création des widgets --------------------------------------------------
-        self.placeholder = ctk.CTkLabel(self.racine, text = "\n", fg_color = "grey20")
+        self.placeholder = ctk.CTkLabel(self.racine, text = "\n", fg_color = "Cornsilk1")
         self.placeholder.pack(side=tk.BOTTOM)
         
         
         #Titre
-        self.titre = ctk.CTkLabel(self.racine, text = "\nMidi Teensy\n\n\n", text_color = "white",
-                                  font = ("Eras Bold ITC", 30), fg_color = "grey20")
+        self.titre = ctk.CTkLabel(self.racine, text = "\n\n\nMidi Teensy\n\n\n\n", text_color = "Black",
+                                  font = ("Eras Bold ITC", 30), fg_color = "Cornsilk1")
         self.titre.pack(anchor = tk.CENTER)
         
         
         #Affichage des notes
         self.note_label = []
         for i in range (self.N) :
-            self.note_label.append(ctk.CTkLabel(self.racine, text = " __ ",
-                                  font = ("Eras Bold ITC", 20), fg_color = "grey20",
+            self.note_label.append(ctk.CTkLabel(self.racine, text = " __ \n",
+                                  font = ("Eras Bold ITC", 20), fg_color = "Cornsilk1",
                                   width=100, height=30))
             self.note_label[i].place(relx = 1/self.N*i, rely = 0.4)
         
         
         #Bouton de mode
-        self.bouton_mode = ctk.CTkButton(self.racine, text = "Major",
+        self.bouton_mode = ctk.CTkButton(self.racine, text = "Major", text_color= "Black",
                     width = 10, command = self.chords_m_select,
-                    fg_color = "DodgerBlue3", hover_color = "DodgerBlue2",
+                    fg_color = "Gray61", hover_color = "Gray63",
                     font = ("Eras Demi ITC", 20), border_spacing = 8)
         self.bouton_mode.pack(anchor = tk.S, side = tk.LEFT, padx = 20)
         
@@ -77,18 +77,18 @@ class boite_a_musique :
         self.boutons_deg = {}
         dic_equi = {"5" : "V", "6" : "VI", "7" : "VII", "9" : "IX"}
         for i in [5,6,7,9] :
-            self.boutons_deg[str(i)] = (ctk.CTkButton(self.racine, text = dic_equi[str(i)],
+            self.boutons_deg[str(i)] = (ctk.CTkButton(self.racine, text = dic_equi[str(i)],  text_color= "Black",
                         width = 10, command = self.chords_d_select(i),
-                        fg_color = "DodgerBlue3", hover_color = "DodgerBlue2",
+                        fg_color = "Gray61", hover_color = "Gray63",
                         font = ("Eras Demi ITC", 20), border_spacing = 8))
             self.boutons_deg[str(i)].pack(anchor = tk.S, side = tk.LEFT, padx = 18)      
         
         
         #Bouton de sélection de l'instrument
-        self.bouton_instru = ctk.CTkButton(self.racine, text = "Organ", 
+        self.bouton_instru = ctk.CTkButton(self.racine, text = "Organ",  text_color= "Black",
                     corner_radius = 10,
                     width = 10, command = self.instru_selection,
-                    fg_color = "DodgerBlue3", hover_color = "DodgerBlue2",
+                    fg_color = "Chocolate1", hover_color = "Chocolate3",
                     font = ("Eras Demi ITC", 20), border_spacing = 8)
         self.bouton_instru.pack(anchor = tk.SW, side = tk.RIGHT, padx = 20) 
           
@@ -126,9 +126,9 @@ class boite_a_musique :
         """
         
         def func() :
-            self.boutons_deg[self.c_d_current].configure(fg_color = "DodgerBlue3", hover_color = "DodgerBlue2")      
+            self.boutons_deg[self.c_d_current].configure(fg_color = "Gray61", hover_color = "Gray63")      
             self.c_d_current = str(d)
-            self.boutons_deg[str(d)].configure(fg_color = "green2", hover_color = "green3")     
+            self.boutons_deg[str(d)].configure(fg_color = "Chocolate1", hover_color = "Chocolate3")     
         
         return func
         
@@ -221,11 +221,11 @@ class boite_a_musique :
         elif event.keysym == "Shift_L" :
             self.chords = not self.chords
             if self.chords :
-                self.bouton_mode.configure(fg_color = "green2", hover_color = "green3")
-                self.boutons_deg[self.c_d_current].configure(fg_color = "green2", hover_color = "green3")
+                self.bouton_mode.configure(fg_color = "Chocolate1", hover_color = "Chocolate3")
+                self.boutons_deg[self.c_d_current].configure(fg_color = "Chocolate1", hover_color = "Chocolate3")
             else :
-                self.bouton_mode.configure(fg_color = "DodgerBlue3", hover_color = "DodgerBlue2")
-                self.boutons_deg[self.c_d_current].configure(fg_color = "DodgerBlue3", hover_color = "DodgerBlue2")
+                self.bouton_mode.configure(fg_color = "Gray61", hover_color = "Gray63")
+                self.boutons_deg[self.c_d_current].configure(fg_color = "Gray61", hover_color = "Gray63")
             
 
 
