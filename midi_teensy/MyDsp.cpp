@@ -19,7 +19,7 @@ echo(AUDIO_SAMPLE_RATE_EXACT,10000)
 
 MyDsp::~MyDsp(){}
 
-// set sine wave frequency
+
 void MyDsp::setFreq(int nb, float freq){
   if (CurrentInstru == 0) {
      organL[nb]->setFrequency(freq);
@@ -28,12 +28,13 @@ void MyDsp::setFreq(int nb, float freq){
   }  
 }
 
+
 void MyDsp::switchInstru(int instru) {
   modif = true;
   NewInstru = instru;
 }
 
-
+// set gain
 void MyDsp::setGaine(float gaine) {
   myGain = gaine;
 }
