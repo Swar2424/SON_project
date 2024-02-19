@@ -3,6 +3,8 @@
 
 #include "SineTable.h"
 #include "Phasor.h"
+#include "MyEnvelope.h"
+#include "Smooth.h"
 
 class MySine2{
 public:
@@ -15,6 +17,8 @@ public:
 private:
   SineTable sineTable;
   Phasor phasor;
+  MyEnvelope envelope;
+  Smooth smooth;
   float gain;
   int samplingRate;
   int envelopeIndex;

@@ -17,11 +17,11 @@ class boite_a_musique :
         Entrée : None
         Sortie : None
         """
-        """
+        
         #Initialisation de la fenêtre
         self.out = rtmidi.MidiOut()
         self.out.open_port(1)
-        """
+        
         self.racine = ctk.CTk(fg_color = "Cornsilk1")
         self.racine.geometry("550x500")
         self.racine.resizable(False, False)
@@ -59,7 +59,7 @@ class boite_a_musique :
         #Affichage des notes
         self.note_label = []
         for i in range (self.N) :
-            self.note_label.append(ctk.CTkLabel(self.racine, text = " __ \n",
+            self.note_label.append(ctk.CTkLabel(self.racine, text = " __ \n", text_color="Black",
                                   font = ("Eras Bold ITC", 20), fg_color = "Cornsilk1",
                                   width=100, height=30))
             self.note_label[i].place(relx = 1/self.N*i, rely = 0.4)
