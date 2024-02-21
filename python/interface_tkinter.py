@@ -127,9 +127,10 @@ class boite_a_musique :
         """
         
         def func() :
-            self.boutons_deg[self.c_d_current].configure(fg_color = "lightgrey", hover_color = "lightgrey")      
-            self.c_d_current = str(d)
-            self.boutons_deg[str(d)].configure(fg_color = "lightskyblue", hover_color = "lightskyblue")     
+            if self.chords :
+                self.boutons_deg[self.c_d_current].configure(fg_color = "lightgrey", hover_color = "lightgrey")      
+                self.boutons_deg[str(d)].configure(fg_color = "lightskyblue", hover_color = "lightskyblue")    
+            self.c_d_current = str(d) 
         
         return func
         
