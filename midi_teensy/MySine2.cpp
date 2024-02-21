@@ -14,7 +14,7 @@ samplingRate(SR),
 isMute(false),
 isReleased(false) {
   smooth.setDel(0.0);
-  smooth.setPole(0.3);
+  smooth.setPole(0.2);
 }
 
 void MySine2::setFrequency(float f){
@@ -33,11 +33,11 @@ float MySine2::tick(){
 
   int index = phasor.tick()*SINE_TABLE_SIZE;
   double value1 = sineTable.tick(index)*(1);
-  double value2 = sineTable.tick(index*2)*(0.3*1);
-  double value3 = sineTable.tick(index*3)*(0.3*0.5);
-  double value4 = sineTable.tick(index*4)*(0.3*0.3);
-  double value5 = sineTable.tick(index*5)*(0.3*0.2);
-  double value6 = sineTable.tick(index*6)*(0.3*0.1);
+  double value2 = sineTable.tick(index*2)*(0.3);
+  double value3 = sineTable.tick(index*3)*(0.15);
+  double value4 = sineTable.tick(index*4)*(0.09);
+  double value5 = sineTable.tick(index*5)*(0.06);
+  double value6 = sineTable.tick(index*6)*(0.03);
 
   return(value1 + value2 + value3 + value4 + value5 + value6) * smooth.tick(envelope.tick());
   

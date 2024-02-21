@@ -27,10 +27,10 @@ void MyEnvelope::setReleased(float b){
 }
     
 float MyEnvelope::tick(){
-  float attackTime = 0.001;
+  float attackTime = 0.003;
   float decayTime = 0.01;
-  float sustainLevel = 0.2;
-  float releaseTime = 1;
+  float sustainLevel = 0.07;
+  float releaseTime = 3;
   
   if (!isReleased) {
       if (envelopeIndex < attackTime * samplingRate) {

@@ -40,7 +40,7 @@ float MySine::tick(){
   double value16 = sineTable.tick(index1*15)*0.05;
   double value17 = sineTable.tick(index1*16);
 
-  return(value0 + value1 + value2 + value3 + value4 + value5 + value6 + value7 + value8 + value9 + value10 + value11 + value12 + value13 + value14 + value15 + value16 + value17)*0.05;
+  return(value0 + value1 + value2 + value3 + value4 + value5 + value6 + value7 + value8 + value9 + value10 + value11 + value12 + value13 + value14 + value15 + value16 + value17)*0.02;
   
   
 }

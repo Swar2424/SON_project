@@ -45,7 +45,7 @@ void OnNoteOff(byte channel, byte note, byte velocity) {
 void setup() {
   AudioMemory(2);
   audioShield.enable();
-  audioShield.volume(0.8);
+  audioShield.volume(0.85);
   for (int i=0 ; i<len ; i++) {
      myDsp.setMute(i, 0);
   }
