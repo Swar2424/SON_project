@@ -18,6 +18,7 @@ class boite_a_musique :
         Sortie : None
         """
         
+        
         #Initialisation de la fenêtre
         self.out = rtmidi.MidiOut()
         self.out.open_port(1)
@@ -59,7 +60,7 @@ class boite_a_musique :
         #Affichage des notes
         self.note_label = []
         for i in range (self.N) :
-            self.note_label.append(ctk.CTkLabel(self.racine, text = " __ \n",
+            self.note_label.append(ctk.CTkLabel(self.racine, text = " __ \n",text_color="Black",
                                   font = ("Eras Bold ITC", 20), fg_color = "lightcyan",
                                   width=100, height=30))
             self.note_label[i].place(relx = 1/self.N*i, rely = 0.4)
