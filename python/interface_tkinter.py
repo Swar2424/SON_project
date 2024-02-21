@@ -17,11 +17,11 @@ class boite_a_musique :
         Entrée : None
         Sortie : None
         """
-        """
+        
         #Initialisation de la fenêtre
         self.out = rtmidi.MidiOut()
         self.out.open_port(1)
-        """
+        
         self.racine = ctk.CTk(fg_color = "lightcyan")
         self.racine.geometry("550x475")
         self.racine.resizable(False, False)
